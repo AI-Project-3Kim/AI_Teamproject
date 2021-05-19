@@ -33,6 +33,20 @@ class Conv():
             return [input_shape[0], (input_shape[1] - weights.shape[0]) // self.stride + 1,
                     (input_shape[2] - weights.shape[1]) // self.stride + 1, self.num_filter]
 
+    def get_weights(self):
+        return self.weights, self.bias
+
+    def get_gradients(self):
+        return self.dweihts, self.dbias
+
+    def set_weights(self, weights, bias):
+        self.weights = weights
+        self.bias = bias
+
+    def set_gradients(self, dw, db):
+        self.dweihts  = dw
+        self.dbias = db
+
     def get_pad_shape(self):
         if self.padding == 'same':
             return ((self.weights.shape[0] - 1) // 2, (self.weights.shape[1] - 1) // 2)

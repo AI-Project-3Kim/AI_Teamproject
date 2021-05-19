@@ -16,7 +16,7 @@ class Conv():
             (filter_size[0], filter_size[1], filter_size[2], num_filter))
         # height, width, channel, num_filter
         self.bias = np.reshape(np.random.normal(0, 0.05, num_filter), (num_filter))
-        self.dweihts = np.zeros_like(self.weights)
+        self.dweights = np.zeros_like(self.weights)
         self.dbias = np.zeros_like(self.bias)
 
         self.input_shape = input_shape  # batch_size, height, width, channel
@@ -37,14 +37,14 @@ class Conv():
         return self.weights, self.bias
 
     def get_gradient(self):
-        return self.dweihts, self.dbias
+        return self.dweights, self.dbias
 
     def set_weight(self, weights, bias):
         self.weights = weights
         self.bias = bias
 
     def set_gradient(self, dw, db):
-        self.dweihts  = dw
+        self.dweights  = dw
         self.dbias = db
 
     def get_pad_shape(self):

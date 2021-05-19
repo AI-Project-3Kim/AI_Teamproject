@@ -17,7 +17,7 @@ class DenseLayer:
         self.prev_arr = None
 
     @classmethod
-    def initialize(cls, prev_num, after_num, weight_init_std=0.1):
+    def initialize(cls, prev_num, after_num, weight_init_std=0.05):
         # weight의 크기만큼 random으로 초기화시킨다.
         weight = np.random.randn(prev_num, after_num) * weight_init_std
         bias = np.random.randn(1, after_num) * weight_init_std

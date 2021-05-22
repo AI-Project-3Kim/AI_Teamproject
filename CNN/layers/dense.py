@@ -10,9 +10,9 @@ class DenseLayer:
         # weight : (prev_num, after_num)
         self.weight = w
         self.bias = b
-        # gradient의 기울기 , gradient의 bias
-        self.gradient_weight = None
-        self.gradient_bias = None
+        # 역전파 weight, bias
+        self.dweight = None
+        self.dbias = None
         # flatten layer의 출력 데이터 
         self.prev_arr = None
 
@@ -31,8 +31,8 @@ class DenseLayer:
     def get_gradient(self):
         if self._dw is None or self._db is None:
             return None
-        g_w = self.gradient_weight
-        g_b = self.gradient_bias
+        g_w = self.dweight
+        g_b = self.dbias
         return g_w,g_b
 
     def forward(self, prev_arr):
@@ -45,9 +45,9 @@ class DenseLayer:
         # n : example 의 개수
         # after_arr : dense layer 을 거친 데이터
         n = self.prev_arr.shape[0]
-        self.gradient_weight = np.dot(self.prev_arr.T, after_arr) / n
+        self.dweight = np.dot(self.prev_arr.T, after_arr) / n
         # 차원 유지 , 세로 합
-        self.gradient_bias = np.sum(after_arr, axis=0, keepdims=True) / n
+        self.dbias = np.sum(after_arr, axis=0, keepdims=True) / n
         # result 는 이 전 층으로 가는 결과
         result =  np.dot(after_arr, self.weight.T)
         return result

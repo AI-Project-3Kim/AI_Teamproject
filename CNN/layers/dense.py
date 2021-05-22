@@ -19,7 +19,7 @@ class DenseLayer:
     @classmethod
     def initialize(cls, prev_num, after_num, weight_init_std=0.05):
         # weight의 크기만큼 random으로 초기화시킨다.
-        weight = np.random.randn(prev_num, after_num) * weight_init_std
+        weight = np.random.randn(after_num, prev_num) * weight_init_std
         bias = np.random.randn(1, after_num) * weight_init_std
         return cls(w=weight, b=bias)
 
@@ -38,18 +38,18 @@ class DenseLayer:
     def forward(self, prev_arr):
         # flatten layer의 출력 데이터 : prev_arr
         self.prev_arr = np.array(prev_arr, copy=True)
-        result = np.dot(prev_arr, self.weight) + self.bias
+        result = np.dot(prev_arr, self.weight.T) + self.bias
         return result
 
     def backward(self, after_arr):
         # n : example 의 개수
         # after_arr : dense layer 을 거친 데이터
         n = self.prev_arr.shape[0]
-        self.dweight = np.dot(self.prev_arr.T, after_arr) / n
+        self.dweight = np.dot( after_arr.T , self.prev_arr) / n
         # 차원 유지 , 세로 합
         self.dbias = np.sum(after_arr, axis=0, keepdims=True) / n
         # result 는 이 전 층으로 가는 결과
-        result =  np.dot(after_arr, self.weight.T)
+        result =  np.dot(after_arr, self.weight)
         return result
 
     def set_weight(self, w, b):

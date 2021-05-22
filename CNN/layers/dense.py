@@ -1,7 +1,5 @@
 import numpy as np
 
-
-
 class DenseLayer:
 
     def __init__(self, w, b):
@@ -43,7 +41,7 @@ class DenseLayer:
 
     def backward(self, after_arr):
         # n : example 의 개수
-        # after_arr : dense layer 을 거친 데이터
+        # after_arr : 앞에서 오는 역전파 값
         n = self.prev_arr.shape[0]
         self.dweight = np.dot( after_arr.T , self.prev_arr) / n
         # 차원 유지 , 세로 합

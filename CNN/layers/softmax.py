@@ -5,7 +5,7 @@ class Softmax():
     def __init__(self):
         self.softmax_output= None
 
-    def forward_pass(self, prev_arr):
+    def forward(self, prev_arr):
         # prev_arr을 softmax 함수를 처리한다.
         # 매우 큰 수가 되면 계산에 문제가 될 수 있기 때문에 최댓값을 빼준다. (결국 같은 값)
         # keepdims : 차원 유지 시켜준다.

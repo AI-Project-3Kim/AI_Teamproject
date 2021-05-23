@@ -5,7 +5,7 @@ import copy
 class Conv():
 
     def __init__(self, num_stride, padding, num_filter, filter_size, input_shape):
-        self.stride = stride
+        self.stride = num_stride
         self.padding = padding  # 'same' or 'valid'
         self.padding_shape = self.get_pad_shape()
         self.num_filter = num_filter

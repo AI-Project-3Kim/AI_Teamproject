@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 
 class Relu():
     def __init__(self):
@@ -12,7 +13,7 @@ class Relu():
 
     def backward(self, after_arr):
         # forward 에서 Relu 함수 적용한 arr을 역전파시킨다.
-        back_arr = np.array(after_arr, copy=True)
+        back_arr = copy.deepcopy(after_arr)
         # 0보다 작으면 0, 0보다 크면 그대로
         back_arr[self.relu_output <= 0] = 0
         return back_arr

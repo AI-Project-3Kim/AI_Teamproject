@@ -45,7 +45,7 @@ class MaxPooling:
         self.mask[index]=tmp
     def backward(self,input_):
         out=np.zeros(self.layer_shape)
-        n,height_out,width_out=input_.shape
+        n,height_out,width_out,ch=input_.shape
         for y in range(height_out):
             for x in range(width_out):
                 w_s=self.stride*x
@@ -53,6 +53,6 @@ class MaxPooling:
                 h_s=self.stride*y
                 h_e=h_s+self.size[0]
                 
-                out[:,h_s:h_e,w_s:w_e,:]+=                     input_[:,y:y+1,x:x+1,:]*self.mask[(y,x)]
+                out[:,h_s:h_e,w_s:w_e,:]+=input_[:,y:y+1,x:x+1,:]*self.mask[(y,x)]
                 
 

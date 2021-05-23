@@ -28,7 +28,7 @@ class Conv():
 
     def get_output_shape(self, input_shape):  # batch_size, height, width, channel
         if self.padding == 'same':
-            return [input_shape[0], input_shape[1], input_shape[2], num_filter]
+            return [input_shape[0], input_shape[1], input_shape[2], self.num_filter]
             # batch number, height number, width number, filter number
         elif self.padding == 'valid':
             return [input_shape[0], (input_shape[1] - weights.shape[0]) // self.stride + 1,

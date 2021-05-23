@@ -21,7 +21,7 @@ class Relu():
         return back_arr
     
     def get_gradient(self):
-        if self._dw is None or self._db is None:
+        if self.dweight is None or self.dbias is None:
             return None
         g_w = self.dweight
         g_b = self.dbias

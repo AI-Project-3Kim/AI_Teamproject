@@ -4,7 +4,7 @@
 # In[11]:
 
 
-import cupy as np
+import numpy as np
 class MaxPooling:
     def __init__(self,size=(2,2),stride=2):
         #풀링 창 사이즈
@@ -21,11 +21,11 @@ class MaxPooling:
         """
         self.layer_shape=input_.shape
         b_s,width_in,height_in,ch=self.layer_shape
-        output_shape=((height_in-self.size[0])//self.stride +1,
-                      (width_in-self.size[1])//self.stride +1)
-        out=np.zeros(self.layer_shape)
-        for y in range(output_shape[0]):
-            for x in range(output_shape[1]):
+        output_shape=(b_s,(height_in-self.size[0])//self.stride +1,
+                      (width_in-self.size[1])//self.stride +1,ch)
+        out=np.zeros(output_shape)
+        for y in range(output_shape[1]):
+            for x in range(output_shape[2]):
                 h_s=self.stride*y
                 h_e=h_s+self.size[0]
                 w_s=self.stride*x
@@ -45,7 +45,7 @@ class MaxPooling:
         self.mask[index]=tmp
     def backward(self,input_):
         out=np.zeros(self.layer_shape)
-        n,height_out,width_out=input_.shape
+        n,height_out,width_out,ch=input_.shape
         for y in range(height_out):
             for x in range(width_out):
                 w_s=self.stride*x
@@ -53,6 +53,6 @@ class MaxPooling:
                 h_s=self.stride*y
                 h_e=h_s+self.size[0]
                 
-                out[:,h_s:h_e,w_s:w_e,:]+=                     input_[:,y:y+1,x:x+1,:]*self.mask[(y,x)]
+                out[:,h_s:h_e,w_s:w_e,:]+=input_[:,y:y+1,x:x+1,:]*self.mask[(y,x)]
         return out        
 

@@ -17,7 +17,7 @@ class Adam():
         
     def update(self,layers):
         #없으면 init 해줌
-        if not len(m) or not len(v):
+        if not len(self.m) or not len(self.v):
             for i,layer in enumerate(layers):
                 g=layer.get_gradient()
                 if not g:

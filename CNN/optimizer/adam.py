@@ -41,14 +41,14 @@ class Adam():
             dw_idx="dw"+str(i)
             db_idx="db"+str(i)
             
-            self.m[dw_idx]=beta_1*self.m[dw_idx]+(1-beta_1)*dw
-            self.m[db_idx]=beta_1*self.m[db_idx]+(1-beta_1)*db
+            self.m[dw_idx]=self.beta_1*self.m[dw_idx]+(1-self.beta_1)*dw
+            self.m[db_idx]=self.beta_1*self.m[db_idx]+(1-self.beta_1)*db
             
-            self.v[dw_idx]=beta_2*self.v[dw_idx]+(1-beta_2)*np.power(dw,2)
-            self.v[db_idx]=beta_2*self.v[db_idx]+(1-beta_2)*np.power(db,2)
+            self.v[dw_idx]=self.beta_2*self.v[dw_idx]+(1-self.beta_2)*np.power(dw,2)
+            self.v[db_idx]=self.beta_2*self.v[db_idx]+(1-self.beta_2)*np.power(db,2)
             # 나중에 가중치 편향이 일어나면 step 고려해줘야함
-            dw=self.m[dw_idx]/(np.sqrt(self.v[dw_idx])+eps)
-            db=self.m[db_idx]/(np.sqrt(self.v[db_idx])+eps)
+            dw=self.m[dw_idx]/(np.sqrt(self.v[dw_idx])+self.eps)
+            db=self.m[db_idx]/(np.sqrt(self.v[db_idx])+self.eps)
             
             weight=layer.weights-self.lr*dw
             bias=layer.bias-self.lr*db

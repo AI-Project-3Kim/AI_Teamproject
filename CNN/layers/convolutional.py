@@ -58,7 +58,6 @@ class Conv():
         self.inputt = copy.deepcopy(inputt)
         output = np.zeros(self.output_shape)
         # print(self.output_shape)
-        w = np.transpose(self.weights, (3, 2, 0, 1))  # num_filter, channel, height, width
         input_padded = np.pad(inputt, pad_width=(
         (0, 0), (self.padding_shape[0], self.padding_shape[0]), (self.padding_shape[1], self.padding_shape[1]), (0, 0)))
         print(input_padded.shape)

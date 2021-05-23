@@ -12,6 +12,8 @@ class MaxPooling:
         #스트라이드 VGG 기본 2
         self.stride=stride
         self.mask={}
+        self.dweight = None
+        self.dbias = None
     def forward(self,input_):
         """
         b_s = batch size
@@ -55,4 +57,9 @@ class MaxPooling:
                 
                 out[:,h_s:h_e,w_s:w_e,:]+=input_[:,y:y+1,x:x+1,:]*self.mask[(y,x)]
         return out        
-
+    def get_gradient(self):
+        if self.dweight is None or self.dbias is None:
+            return None
+        g_w = self.dweight
+        g_b = self.dbias
+        return g_w,g_b

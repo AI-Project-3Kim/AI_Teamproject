@@ -4,7 +4,9 @@ import copy
 class Relu():
     def __init__(self):
         self.relu_output = None
-
+        self.dweight = None
+        self.dbias = None
+        
     def forward(self,prev_arr):
         # 입력받을 값 (prev_arr)을 Relu 함수에 적용한다.
         # 0보다 크면 그냥 prev_arr 값 출력, 0보다 작으면 0값 출력한다.
@@ -17,3 +19,10 @@ class Relu():
         # 0보다 작으면 0, 0보다 크면 그대로
         back_arr[self.relu_output <= 0] = 0
         return back_arr
+    
+    def get_gradient(self):
+        if self._dw is None or self._db is None:
+            return None
+        g_w = self.dweight
+        g_b = self.dbias
+        return g_w,g_b

@@ -7,6 +7,8 @@ class Flatten:
         self.prev_shape = ()
         self.dweight = None
         self.dbias = None
+        self.weight = None
+        self.bias = None
         
     def forward(self, prev_arr):
         # Conv, pooling 이 끝난 데이터(n차원)을 입력받아서 1차원으로 변환한다.
@@ -23,3 +25,11 @@ class Flatten:
         g_w = self.dweight
         g_b = self.dbias
         return g_w,g_b
+    def get_weight(self):
+        weight = self.weight
+        bias = self.bias
+        return weight,bias
+    
+    def set_weight(self, w, b):
+        self.weight = w
+        self.bias = b

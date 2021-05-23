@@ -12,6 +12,8 @@ class Dropout:
         self.dropout_mask = None
         self.dweight = None
         self.dbias = None
+        self.weight = None
+        self.bias = None
         
     def forward(self, prev_arr, trainflg=True):
         # train 할 때 dropout을 적용해야한다.
@@ -32,3 +34,11 @@ class Dropout:
         g_w = self.dweight
         g_b = self.dbias
         return g_w,g_b
+    def get_weight(self):
+        weight = self.weight
+        bias = self.bias
+        return weight,bias
+
+    def set_weight(self, w, b):
+        self.weight = w
+        self.bias = b

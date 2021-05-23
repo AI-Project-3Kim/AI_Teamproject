@@ -56,7 +56,7 @@ class Conv():
 
     def forward(self, inputt):
         self.inputt = copy.deepcopy(inputt)
-        output = np.zeros_like(self.output_shape)
+        output = np.zeros(self.output_shape)
         # print(self.output_shape)
         w = np.transpose(self.weights, (3, 2, 0, 1))  # num_filter, channel, height, width
         input_padded = np.pad(inputt, pad_width=(
@@ -81,7 +81,8 @@ class Conv():
 
         input_padded = np.pad(inputt, pad_width=(
         (0, 0), (self.padding_shape[0], padding_shape[0]), (padding_shape[1], padding_shape[1]), (0, 0)))
-        output = np.zeros_like(input_padded)
+        output = np.
+        _like(input_padded)
 
         for i in range(loss.shape[1]):
             for j in range(loss.shape[2]):

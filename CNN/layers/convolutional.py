@@ -56,11 +56,12 @@ class Conv():
 
     def forward(self, inputt):
         self.inputt = copy.deepcopy(inputt)
-
+        output = np.zeros_like(self.output_shape)
+        # print(self.output_shape)
         w = np.transpose(self.weights, (3, 2, 0, 1))  # num_filter, channel, height, width
         input_padded = np.pad(inputt, pad_width=(
         (0, 0), (self.padding_shape[0], self.padding_shape[0]), (self.padding_shape[1], self.padding_shape[1]), (0, 0)))
-
+        print(input_padded.shape)
         for i in range(self.output_shape[1]):
             for j in range(self.output_shape[2]):
                 height_start = i * self.stride
@@ -69,7 +70,7 @@ class Conv():
                 width_end = width_start + self.weights.shape[1]
 
                 output[:, i, j, :] = np.sum(
-                    input_padded[:, h_start:h_end, w_start:w_end, :, np.newaxis] *
+                    input_padded[:, height_start:height_end, width_start:width_end, :, np.newaxis] *
                     self.weights[np.newaxis, :, :, :],
                     axis=(1, 2, 3)
                 )

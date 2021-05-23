@@ -7,7 +7,6 @@ class Conv():
     def __init__(self, num_stride, padding, num_filter, filter_size, input_shape):
         self.stride = num_stride
         self.padding = padding  # 'same' or 'valid'
-        self.padding_shape = self.get_pad_shape()
         self.num_filter = num_filter
         self.filter_size = filter_size  # [a,b,c]
 
@@ -23,6 +22,8 @@ class Conv():
         self.output_shape = self.get_output_shape(input_shape)  # batch_size, height, width, filter
 
         self.inputt = np.zeros_like(input_shape)
+        
+        self.padding_shape = self.get_pad_shape()
         # self.input_col = None
 
     def get_output_shape(self, input_shape):  # batch_size, height, width, channel

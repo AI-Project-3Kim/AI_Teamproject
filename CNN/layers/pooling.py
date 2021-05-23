@@ -40,9 +40,8 @@ class MaxPooling:
         n,height,width,ch=array.shape
         array=array.reshape(n,height*width,ch)
         idx_list=np.argmax(array,axis=1)
-        
         n_idx,c_idx=np.indices((n,ch))
-        tmp.reshape(n,height*width,ch)[n_idx,c_idx]=1
+        tmp.reshape(n,height*width,ch)[n_idx,idx_list,c_idx]=1
         self.mask[index]=tmp
     def backward(self,input_):
         out=np.zeros(self.layer_shape)

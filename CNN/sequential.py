@@ -15,7 +15,7 @@ class SequentialModel:
         for e in range(epochs):
             start = time.time()
             y_hat = np.zeros_like(y_train)
-            for idx in range(int(x_train[0]/batch_size)):
+            for idx in range(int(x_train.shape[0]/batch_size)):
                 x_train_batch = x_train.take(indices = range(idx, min(idx+batch_size, x_train.shape[0])), axis=0)
                 y_train_batch = y_train.take(indices=range(idx, min(idx + batch_size, y_train.shape[0])), axis=0)
 

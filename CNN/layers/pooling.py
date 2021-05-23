@@ -21,11 +21,11 @@ class MaxPooling:
         """
         self.layer_shape=input_.shape
         b_s,width_in,height_in,ch=self.layer_shape
-        output_shape=((height_in-self.size[0])//self.stride +1,
-                      (width_in-self.size[1])//self.stride +1)
-        out=np.zeros(self.layer_shape)
-        for y in range(output_shape[0]):
-            for x in range(output_shape[1]):
+        output_shape=(b_s,(height_in-self.size[0])//self.stride +1,
+                      (width_in-self.size[1])//self.stride +1,ch)
+        out=np.zeros(output_shape)
+        for y in range(output_shape[1]):
+            for x in range(output_shape[2]):
                 h_s=self.stride*y
                 h_e=h_s+self.size[0]
                 w_s=self.stride*x

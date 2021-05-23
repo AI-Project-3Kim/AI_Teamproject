@@ -54,5 +54,5 @@ class MaxPooling:
                 h_e=h_s+self.size[0]
                 
                 out[:,h_s:h_e,w_s:w_e,:]+=input_[:,y:y+1,x:x+1,:]*self.mask[(y,x)]
-                
+        return out        
 

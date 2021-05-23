@@ -6,6 +6,8 @@ class Softmax():
         self.softmax_output= None
         self.dweight = None
         self.dbias = None
+        self.weight = None
+        self.bias= None
         
     def forward(self, prev_arr):
         # prev_arr을 softmax 함수를 처리한다.
@@ -23,9 +25,19 @@ class Softmax():
         # softmax 값 - target 값 한 결과가 softmax loss의 역전파 
         # (Sequential.py에 시행)
         return after_arr
+    
     def get_gradient(self):
         if self.dweight is None or self.dbias is None:
             return None
         g_w = self.dweight
         g_b = self.dbias
         return g_w,g_b
+    
+    def get_weight(self):
+        weight = self.weight
+        bias = self.bias
+        return weight,bias
+
+    def set_weight(self, w, b):
+        self.weight = w
+        self.bias = b

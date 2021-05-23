@@ -57,8 +57,8 @@ class SequentialModel:
 
     def forward(self, inputt):
         x = inputt
-        for layer in self.layers:
-            x = layer.forward(x)
+        for i in tqdm.tqdm(len(self.layers)):
+            x = self.layers[i].forward(x)
         return x
 
     def backward(self, outputt):

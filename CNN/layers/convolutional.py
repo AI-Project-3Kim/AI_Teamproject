@@ -59,7 +59,7 @@ class Conv():
 
         w = np.transpose(self.weights, (3, 2, 0, 1))  # num_filter, channel, height, width
         input_padded = np.pad(inputt, pad_width=(
-        (0, 0), (self.padding_shape[0], padding_shape[0]), (padding_shape[1], padding_shape[1]), (0, 0)))
+        (0, 0), (self.padding_shape[0], self.padding_shape[0]), (self.padding_shape[1], self.padding_shape[1]), (0, 0)))
 
         for i in range(self.output_shape[1]):
             for j in range(self.output_shape[2]):

@@ -32,7 +32,7 @@ class MaxPooling:
                 w_e=w_s+self.size[1]
                 
                 slice_=input_[:,h_s:h_e,w_s:w_e,:]
-                make_mask(slice_,(y,x))
+                self.make_mask(slice_,(y,x))
                 out[:,y,x,:]=np.max(slice_,axis=(1,2))
         return out
     def make_mask(self,array,index):

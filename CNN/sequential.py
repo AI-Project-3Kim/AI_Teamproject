@@ -19,7 +19,7 @@ class SequentialModel:
                 x_train_batch = x_train.take(indices = range(idx, min(idx+batch_size, x_train.shape[0])), axis=0)
                 y_train_batch = y_train.take(indices=range(idx, min(idx + batch_size, y_train.shape[0])), axis=0)
 
-                y_hat_batch = self.forward(x_train_batch, y_train_batch, batch_size)
+                y_hat_batch = self.forward(x_train_batch)
                 loss_batch = y_hat_batch - y_train_batch
                 self.backward(loss_batch)
                 self.update()

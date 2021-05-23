@@ -63,12 +63,12 @@ class MaxPooling:
         g_w = self.dweight
         g_b = self.dbias
         return g_w,g_b
-    def set_weight(self, w: np.array, b: np.array) -> None:
+    def set_weight(self, w, b):
         """
         Perform layer backward propagation logic.
         """
         pass
-    def get_weight(self) -> Optional[Tuple[np.array, np.array]]:
+    def get_weight(self):
         """
         Returns weights tensor if layer is trainable.
         Returns None for non-trainable layers.

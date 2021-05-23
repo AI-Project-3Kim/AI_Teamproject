@@ -10,7 +10,9 @@ class Dropout:
         # 몇 개만큼 노드를 쓸지 
         self.dropout_rate = dropout_rate
         self.dropout_mask = None
-
+        self.dweight = None
+        self.dbias = None
+        
     def forward(self, prev_arr, trainflg=True):
         # train 할 때 dropout을 적용해야한다.
         if trainflg:
@@ -23,4 +25,10 @@ class Dropout:
 
     def backward(self, after_arr):
         return after_arr * self.dropout_mask / self.dropout_rate
-        
+    
+    def get_gradient(self):
+        if self.dweight is None or self.dbias is None:
+            return None
+        g_w = self.dweight
+        g_b = self.dbias
+        return g_w,g_b

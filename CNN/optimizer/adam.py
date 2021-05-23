@@ -34,6 +34,8 @@ class Adam():
         #받아온다
         for i,layer in enumerate(layers):
             weights,gradients=layer.get_weight(),layer.get_gradient()
+            if weights is None or gradients is None:
+                continue
             (w,b)=weights
             (dw,db)=gradients
             

@@ -4,7 +4,7 @@
 # In[11]:
 
 
-import numpy as np
+import cupy as np
 class MaxPooling:
     def __init__(self,size=(2,2),stride=2):
         #풀링 창 사이즈

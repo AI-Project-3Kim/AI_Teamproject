@@ -81,8 +81,7 @@ class Conv():
 
         input_padded = np.pad(inputt, pad_width=(
         (0, 0), (self.padding_shape[0], padding_shape[0]), (padding_shape[1], padding_shape[1]), (0, 0)))
-        output = np.
-        _like(input_padded)
+        output = np.zeros_like(input_padded)
 
         for i in range(loss.shape[1]):
             for j in range(loss.shape[2]):

@@ -1,6 +1,6 @@
 import numpy as np
 
-class Adam(Optimizer):
+class Adam():
     def __init__(self, lr=1e-3, beta_1=0.9, beta_2=0.999, eps=1e-8):
         """
         m = moment mean dict

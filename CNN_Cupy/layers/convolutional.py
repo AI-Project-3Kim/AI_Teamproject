@@ -60,7 +60,7 @@ class Conv():
         # print(self.output_shape)
         input_padded = np.pad(inputt, pad_width=(
         (0, 0), (self.padding_shape[0], self.padding_shape[0]), (self.padding_shape[1], self.padding_shape[1]), (0, 0)))
-        print(input_padded.shape)
+        # print(input_padded.shape)
         for i in range(self.output_shape[1]):
             for j in range(self.output_shape[2]):
                 height_start = i * self.stride
@@ -78,26 +78,26 @@ class Conv():
 
     def backward(self, loss):  # batch, height, width, num_filter
 
-        input_padded = np.pad(inputt, pad_width=(
-        (0, 0), (self.padding_shape[0], padding_shape[0]), (padding_shape[1], padding_shape[1]), (0, 0)))
+        input_padded = np.pad(self.inputt, pad_width=(
+        (0, 0), (self.padding_shape[0], self.padding_shape[0]), (self.padding_shape[1], self.padding_shape[1]), (0, 0)))
         output = np.zeros_like(input_padded)
 
         for i in range(loss.shape[1]):
             for j in range(loss.shape[2]):
-                h_start = i * self._stride
-                h_end = h_start + h_f
-                w_start = j * self._stride
-                w_end = w_start + w_f
-                output[:, h_start:h_end, w_start:w_end, :] += np.sum(
+                height_start = i * self.stride
+                height_end = height_start + self.weights.shape[0]
+                width_start = j * self.stride
+                width_end = width_start + self.weights.shape[1]
+                output[:, height_start:height_end, width_start:width_end, :] += np.sum(
                     self.weights[np.newaxis, :, :, :, :] *
                     loss[:, i:i + 1, j:j + 1, np.newaxis, :],
                     axis=4
                 )
                 self.dweights += np.sum(
-                    input_padded[:, h_start:h_end, w_start:w_end, :, np.newaxis] *
+                    input_padded[:, height_start:height_end, width_start:width_end, :, np.newaxis] *
                     loss[:, i:i + 1, j:j + 1, np.newaxis, :],
                     axis=0
                 )
 
-        self.dweights /= n
-        return output[:, pad[0]:pad[0] + self.inputt.shape[1], pad[1]:pad[1] + self.inputt.shape[2], :]
+        self.dweights /= self.inputt.shape[0]
+        return output[:, self.padding_shape[0]:self.padding_shape[0] + self.inputt.shape[1], self.padding_shape[1]:self.padding_shape[1] + self.inputt.shape[2], :]

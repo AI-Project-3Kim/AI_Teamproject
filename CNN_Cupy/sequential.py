@@ -37,7 +37,7 @@ class SequentialModel:
             h, r = divmod(time.time() - start, 3600)
             m, s = divmod(r, 60)
             time_per_epoch = "{:0>2}:{:0>2}:{:05.2f}".format(int(h), int(m), s)
-            print("iter: {:05} | test loss: {:.5f} | test accuracy: {:.5f} | time: {}"
+            print("iter: {:05} | train loss: {:.5f} | train accuracy: {:.5f} | time: {}"
                   .format(e + 1, self.train_loss[e], self.train_accuracy[e], time_per_epoch))
 
     def test(self, x_test, y_test, batch_size):

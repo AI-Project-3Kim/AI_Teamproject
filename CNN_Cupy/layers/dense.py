@@ -6,7 +6,7 @@ class DenseLayer:
         # flatten layer의 출력 데이터(전)와 4096개의layer(후)
         # flatten layer의 출력 데이터(전)와 클래스별로 분리된 layer(후)
         # weight : (prev_num, after_num)
-        self.weight = w
+        self.weights = w
         self.bias = b
         # 역전파 weight, bias
         self.dweight = None
@@ -22,7 +22,7 @@ class DenseLayer:
         return cls(w=weight, b=bias)
 
     def get_weight(self):
-        weight = self.weight
+        weight = self.weights
         bias = self.bias
         return weight,bias
   
@@ -36,7 +36,7 @@ class DenseLayer:
     def forward(self, prev_arr):
         # flatten layer의 출력 데이터 : prev_arr
         self.prev_arr = np.array(prev_arr, copy=True)
-        result = np.dot(prev_arr, self.weight.T) + self.bias
+        result = np.dot(prev_arr, self.weights.T) + self.bias
         return result
 
     def backward(self, after_arr):
@@ -47,9 +47,9 @@ class DenseLayer:
         # 차원 유지 , 세로 합
         self.dbias = np.sum(after_arr, axis=0, keepdims=True) / n
         # result 는 이 전 층으로 가는 결과
-        result =  np.dot(after_arr, self.weight)
+        result =  np.dot(after_arr, self.weights)
         return result
 
     def set_weight(self, w, b):
-        self.weight = w
+        self.weights = w
         self.bias = b

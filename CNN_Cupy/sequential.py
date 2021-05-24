@@ -62,7 +62,7 @@ class SequentialModel:
 
     def forward(self, inputt):
         x = inputt
-        for i in range(len(self.layers)):
+        for i in tqdm.tqdm(range(len(self.layers))):
             x = self.layers[i].forward(x)
         return x
 

@@ -12,7 +12,7 @@ class Dropout:
         self.dropout_mask = None
         self.dweight = None
         self.dbias = None
-        self.weight = None
+        self.weights = None
         self.bias = None
         
     def forward(self, prev_arr, trainflg=True):
@@ -36,10 +36,10 @@ class Dropout:
         return g_w,g_b
     
     def get_weight(self):
-        weight = self.weight
+        weight = self.weights
         bias = self.bias
         return weight,bias
     
     def set_weight(self, w, b):
-        self.weight = w
+        self.weights = w
         self.bias = b

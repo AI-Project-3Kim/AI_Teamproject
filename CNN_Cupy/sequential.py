@@ -24,7 +24,7 @@ class SequentialModel:
                 self.backward(loss_batch)
                 self.update()
 
-                y_hat[idx*batch_size : y_hat_batch.shape[0], :] = y_hat_batch
+                y_hat[idx*batch_size : idx*batch_size + y_hat_batch.shape[0], :] = y_hat_batch
 
             self.train_accuracy.append( (np.argmax(y_hat, axis=1) == y_train).all(axis=1).mean() )
             self.train_loss.append( -np.sum(y_train * np.log(np.clip(y_hat, 1e-20, 1.))) / y_hat.shape[0])

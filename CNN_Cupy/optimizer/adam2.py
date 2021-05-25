@@ -25,7 +25,7 @@ class Adam():
         self._beta2 = beta2
         self._eps = eps
 
-    def update(self, layers: List[Layer]) -> None:
+    def update(self, layers) :
         if len(self._cache_s) == 0 or len(self._cache_v) == 0:
             self._init_cache(layers)
 
@@ -51,7 +51,7 @@ class Adam():
                 b=b - self._lr * db
             )
 
-    def _init_cache(self, layers: List[Layer]) -> None:
+    def _init_cache(self, layers):
         for idx, layer in enumerate(layers):
             gradients = layer.get_gradient()
             if gradients is None:
@@ -66,9 +66,6 @@ class Adam():
             self._cache_s[db_key] = np.zeros_like(db)
 
     @staticmethod
-    def _get_cache_keys(idx: int) -> Tuple[str, str]:
-    """
-    :param idx - index of layer
-    """
+    def _get_cache_keys(idx):
         return f"dw{idx}", f"db{idx}"
 

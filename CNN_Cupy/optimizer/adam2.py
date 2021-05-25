@@ -47,8 +47,8 @@ class Adam():
             db = self._cache_v[db_key] / (np.sqrt(self._cache_s[db_key]) + self._eps)
 
             layer.set_weight(
-                w=w - self._lr * dw,
-                b=b - self._lr * db
+                w - self._lr * dw,
+                b - self._lr * db
             )
 
     def _init_cache(self, layers):

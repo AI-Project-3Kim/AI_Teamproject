@@ -1,4 +1,4 @@
-from __future__ import annotations
+
 from typing import List, Dict, Callable, Optional
 import time
 import tqdm
@@ -29,7 +29,7 @@ class SequentialModel:
         epochs: int,
         bs: int = 64,
         verbose: bool = False,
-        callback: Optional[Callable[[SequentialModel], None]] = None
+        callback = None
     ) -> None:
         """
         :param x_train - ND feature tensor with shape (n_train, ...)

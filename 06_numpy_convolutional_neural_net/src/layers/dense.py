@@ -1,4 +1,3 @@
-from __future__ import annotations
 
 from typing import Optional, Tuple
 
@@ -22,7 +21,7 @@ class DenseLayer(Layer):
         self._a_prev = None
 
     @classmethod
-    def initialize(cls, units_prev: int, units_curr: int) -> DenseLayer:
+    def initialize(cls, units_prev: int, units_curr: int):
         """
         :param units_prev - positive integer, number of units in previous layer
         :param units_curr - positive integer, number of units in current layer

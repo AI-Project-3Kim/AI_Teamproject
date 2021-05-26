@@ -1,4 +1,3 @@
-from __future__ import annotations
 
 try:
     from src.cs231n.fast_conv_cython import col2im_cython, im2col_cython
@@ -48,7 +47,7 @@ class ConvLayer2D(Layer):
         kernel_shape: Tuple[int, int, int],
         padding: str = 'valid',
         stride: int = 1
-    ) -> ConvLayer2D:
+    ):
         w = np.random.randn(*kernel_shape, filters) * 0.1
         b = np.random.randn(filters) * 0.1
         return cls(w=w, b=b, padding=padding, stride=stride)

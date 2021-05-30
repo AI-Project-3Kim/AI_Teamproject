@@ -1,23 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 from tensorflow.keras.models import Sequential
 from tensorflow.keras import optimizers
 from tensorflow.keras.layers import Dense, Activation, Flatten, Conv2D, MaxPooling2D, Dropout
 import random
-
-
-# In[2]:
-
-
-
 import numpy as np
-
 import tensorflow as tf
 
+#데이터 
 train_dataset=tf.keras.preprocessing.image_dataset_from_directory(
     directory='./curated_data',
     labels="inferred",
@@ -49,9 +40,6 @@ test_dataset=tf.keras.preprocessing.image_dataset_from_directory(
 )
 
 
-# In[5]:
-
-
 #input
 inputs = tf.keras.layers.Input(shape=(1,))
 #predictions
@@ -63,15 +51,7 @@ adam = optimizers.Adam(learning_rate = 0.003)
 #loss function -> categorical_crossentropy
 model.compile(loss = 'categorical_crossentropy', optimizer = adam, metrics = ['accuracy'])
 
-
-# In[6]:
-
-
 model.summary()
-
-
-# In[7]:
-
 
 initial_epochs = 10
 history = model.fit(
@@ -79,15 +59,7 @@ history = model.fit(
   epochs=initial_epochs
 )
 
-
-# In[8]:
-
-
 results=model.evaluate(test_dataset)
-
-
-# In[9]:
-
 
 import matplotlib.pyplot as plt
 #train accuracy print
@@ -96,18 +68,8 @@ plt.plot(history.history['accuracy'])
 plt.legend(['training'], loc = 'upper left')
 plt.show()
 
-# 각종 값 출력
-print(history.history['loss'])
-print(history.history['accuracy'])
-
-
-# In[10]:
-
 
 print(results)
-
-
-# In[ ]:
 
 
 

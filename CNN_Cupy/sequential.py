@@ -20,20 +20,25 @@ class SequentialModel:
                 x_train_batch = x_train.take(indices = range(idx, min(idx+batch_size, x_train.shape[0])), axis=0)
                 y_train_batch = y_train.take(indices=range(idx, min(idx + batch_size, y_train.shape[0])), axis=0)
 
-                y_hat_batch = self.forward(x_train_batch)
+                y_hat_batch = self.forward(x_train_batch)   # x 값 batch로 forward 시켜서 y_hat 값 받음
                 # print('y_hat_shape : {}'.format(y_hat_batch.shape))  
-                loss_batch = y_hat_batch - y_train_batch
-                self.backward(loss_batch)
-                self.update()
-
+                loss_batch = y_hat_batch - y_train_batch        # loss 값 구함
+                self.backward(loss_batch)       # backpropagation
+                self.update()                   # adam 사용해서 datae
+                
+                # 한 batch 당의 y_hat 
                 y_hat[idx*batch_size : idx*batch_size + y_hat_batch.shape[0], :] = y_hat_batch
 
             # print(np.argmax(y_hat, axis=1))
             # print(np.argmax(y_train, axis=1))
             # print(list(np.argmax(y_hat, axis=1) == np.argmax(y_train, axis=1) ).count(True) / y_hat.shape[0])
+            
+            # 트레인 결과들 append 시켜서 그래프 plotting 할 수 있게 처리
             self.train_accuracy.append( list(np.argmax(y_hat, axis=1) == np.argmax(y_train, axis=1) ).count(True) / y_hat.shape[0] )
             self.train_loss.append( (-np.sum(y_train * np.log(np.clip(y_hat, 1e-20, 1.))) / y_hat.shape[0]).tolist() )
             # print(self.train_loss[e][0])
+            
+            # 출력 형식 맞춰주기
             h, r = divmod(time.time() - start, 3600)
             m, s = divmod(r, 60)
             time_per_epoch = "{:0>2}:{:0>2}:{:05.2f}".format(int(h), int(m), s)

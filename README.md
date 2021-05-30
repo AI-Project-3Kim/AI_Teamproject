@@ -17,22 +17,24 @@
 
 2. https://github.com/AI-Project-3Kim/AI_Teamproject.git로 git clone을 받아옵니다.
 
-3. https://drive.google.com/file/d/1lteQ-ZbJx1AFrXyqgIUuyGziS2Vpfbml/view?usp=sharing 에서 x.npy파일을 다운 받고
+3. pip install -r requirements.txt
 
-4. https://drive.google.com/file/d/1sF8PvAQg2AktrXuXM5KLq4fwJn2tIBIr/view?usp=sharing 에서 y.npy파일을 다운받아서
+4. https://drive.google.com/file/d/1lteQ-ZbJx1AFrXyqgIUuyGziS2Vpfbml/view?usp=sharing 에서 x.npy파일을 다운 받고
 
-5. 프로젝트 최상위 폴더의 Dataset폴더에 복사를 합니다.
+5. https://drive.google.com/file/d/1sF8PvAQg2AktrXuXM5KLq4fwJn2tIBIr/view?usp=sharing 에서 y.npy파일을 다운받아서
 
-6. 최상위 폴더에서 " python covid.py " 을 실행 시키면 됩니다.
+6. 프로젝트 최상위 폴더의 Dataset폴더에 복사를 합니다.
+
+7. 최상위 폴더에서 " python covid.py " 을 실행 시키면 됩니다.
 
 
-- keras로 구현한 모델 실행하기 (1,2번 위와 동일)
+- keras로 구현한 모델 실행하기 (1-3번 위와 동일)
 
-3. https://drive.google.com/file/d/1BqQmzkw4IvX31QZ93biRuMrwNdPxlb3p/view (사진 data)를 받습니다.
+4. https://drive.google.com/file/d/1BqQmzkw4IvX31QZ93biRuMrwNdPxlb3p/view (사진 data)를 받습니다.
 
-4. 받은 사진 data를 프로젝트 최상위 폴더에 압축을 풉니다.
+5. 받은 사진 data를 프로젝트 최상위 폴더에 압축을 풉니다.
 
-5. LENET.py와 RESNET50.py, VGG16.py 3개의 python 파일을 python으로 실행시키면 됩니다.
+6. LENET.py와 RESNET50.py, VGG16.py 3개의 python 파일을 python으로 실행시키면 됩니다.
 
 ### 결과
 

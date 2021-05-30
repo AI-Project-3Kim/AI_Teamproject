@@ -4,17 +4,17 @@ import copy
 
 class Conv():
 
-    def __init__(self, num_stride, padding, num_filter, filter_size, input_shape):
+    def __init__(self, num_stride, padding, num_filter, filter_size, input_shape): #weight와 bias를 초기화 시켜 주었습니다.
         self.stride = num_stride
         self.padding = padding  # 'same' or 'valid'
         self.num_filter = num_filter
         self.filter_size = filter_size  # [a,b,c]
 
-        self.weights = np.reshape(
+        self.weights = np.reshape(              # weight는 filter의 height, width, channel, filter 수 가 weight의 shape가 되도록 선언
             np.random.normal(0, 0.05, filter_size[0] * filter_size[1] * filter_size[2] * num_filter),
-            (filter_size[0], filter_size[1], filter_size[2], num_filter))
+            (filter_size[0], filter_size[1], filter_size[2], num_filter))   # 평균이 0이고 표준편차가 0.05로 초기화
         # height, width, channel, num_filter
-        self.bias = np.reshape(np.random.normal(0, 0.05, num_filter), (num_filter))
+        self.bias = np.reshape(np.random.normal(0, 0.05, num_filter), (num_filter))     # 평균이 0이고 표준편차가 0.05로 초기화
         self.dweights = np.zeros_like(self.weights)
         self.dbias = np.zeros_like(self.bias)
 
@@ -24,7 +24,7 @@ class Conv():
         # self.inputt = np.zeros_like(input_shape)
         
         self.padding_shape = self.get_pad_shape()
-        # self.input_col = None
+       
 
     def get_output_shape(self, input_shape):  # batch_size, height, width, channel
         if self.padding == 'same':
@@ -67,7 +67,7 @@ class Conv():
                 height_end = height_start + self.weights.shape[0]
                 width_start = j * self.stride
                 width_end = width_start + self.weights.shape[1]
-
+                #(batch수, height, width, 1, filter수) -> (shape : batch수, height, width, filter수)
                 output[:, i, j, :] = np.sum(input_padded[:, height_start:height_end, width_start:width_end, :, np.newaxis] * self.weights[np.newaxis, :, :, :],axis=(1, 2, 3) )
 
         return output + self.bias
@@ -79,7 +79,7 @@ class Conv():
         output = np.zeros_like(input_padded)
 
         for i in range(loss.shape[1]):
-            for j in range(loss.shape[2]):
+            for j in range(loss.shape[2]):  # chain rule
                 height_start = i * self.stride
                 height_end = height_start + self.weights.shape[0]
                 width_start = j * self.stride

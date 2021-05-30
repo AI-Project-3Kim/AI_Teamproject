@@ -68,11 +68,7 @@ class Conv():
                 width_start = j * self.stride
                 width_end = width_start + self.weights.shape[1]
 
-                output[:, i, j, :] = np.sum(
-                    input_padded[:, height_start:height_end, width_start:width_end, :, np.newaxis] *
-                    self.weights[np.newaxis, :, :, :],
-                    axis=(1, 2, 3)
-                )
+                output[:, i, j, :] = np.sum(input_padded[:, height_start:height_end, width_start:width_end, :, np.newaxis] * self.weights[np.newaxis, :, :, :],axis=(1, 2, 3) )
 
         return output + self.bias
 
@@ -88,16 +84,8 @@ class Conv():
                 height_end = height_start + self.weights.shape[0]
                 width_start = j * self.stride
                 width_end = width_start + self.weights.shape[1]
-                output[:, height_start:height_end, width_start:width_end, :] += np.sum(
-                    self.weights[np.newaxis, :, :, :, :] *
-                    loss[:, i:i + 1, j:j + 1, np.newaxis, :],
-                    axis=4
-                )
-                self.dweights += np.sum(
-                    input_padded[:, height_start:height_end, width_start:width_end, :, np.newaxis] *
-                    loss[:, i:i + 1, j:j + 1, np.newaxis, :],
-                    axis=0
-                )
+                output[:, height_start:height_end, width_start:width_end, :] += np.sum(self.weights[np.newaxis, :, :, :, :] * loss[:, i:i + 1, j:j + 1, np.newaxis, :], axis=4 )
+                self.dweights += np.sum(input_padded[:, height_start:height_end, width_start:width_end, :, np.newaxis] *loss[:, i:i + 1, j:j + 1, np.newaxis, :],axis=0 )
 
         self.dweights /= self.inputt.shape[0]
         return output[:, self.padding_shape[0]:self.padding_shape[0] + self.inputt.shape[1], self.padding_shape[1]:self.padding_shape[1] + self.inputt.shape[2], :]

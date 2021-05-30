@@ -22,21 +22,27 @@ class MaxPooling:
         ch = channel num
         """
         self.layer_shape=input_.shape
+        
         b_s,width_in,height_in,ch=self.layer_shape
+        #input data shape와 stride를 이용해서 output shape를 계산해줌
         output_shape=(b_s,(height_in-self.size[0])//self.stride +1,
                       (width_in-self.size[1])//self.stride +1,ch)
         out=np.zeros(output_shape)
+        
         for y in range(output_shape[1]):
             for x in range(output_shape[2]):
                 h_s=self.stride*y
                 h_e=h_s+self.size[0]
                 w_s=self.stride*x
                 w_e=w_s+self.size[1]
-                
+                #stride를 이용해 pooling 할만큼 slice해줌
                 slice_=input_[:,h_s:h_e,w_s:w_e,:]
+                #backward 할 경우를 생각해 mask 저장해줌
                 self.make_mask(slice_,(y,x))
+                #max 함수를 이용해서 maxpooling 해줌
                 out[:,y,x,:]=np.max(slice_,axis=(1,2))
         return out
+    
     def make_mask(self,array,index):
         tmp=np.zeros_like(array)
         n,height,width,ch=array.shape
@@ -44,7 +50,9 @@ class MaxPooling:
         idx_list=np.argmax(array,axis=1)
         n_idx,c_idx=np.indices((n,ch))
         tmp.reshape(n,height*width,ch)[n_idx,idx_list,c_idx]=1
+        #index를 넣으면 어디가 max였던지 알려줌
         self.mask[index]=tmp
+        
     def backward(self,input_):
         out=np.zeros(self.layer_shape)
         n,height_out,width_out,ch=input_.shape
@@ -54,23 +62,14 @@ class MaxPooling:
                 w_e=w_s+self.size[1]
                 h_s=self.stride*y
                 h_e=h_s+self.size[0]
-                
+                # maxpool 되었던 곳에 받은 input을 더해줌
                 out[:,h_s:h_e,w_s:w_e,:]+=input_[:,y:y+1,x:x+1,:]*self.mask[(y,x)]
         return out        
     def get_gradient(self):
-        if self.dweight is None or self.dbias is None:
-            return None
-        g_w = self.dweight
-        g_b = self.dbias
-        return g_w,g_b
+        return None
     def set_weight(self, w, b):
-        """
-        Perform layer backward propagation logic.
-        """
+        
         pass
     def get_weight(self):
-        """
-        Returns weights tensor if layer is trainable.
-        Returns None for non-trainable layers.
-        """
+        
         return None

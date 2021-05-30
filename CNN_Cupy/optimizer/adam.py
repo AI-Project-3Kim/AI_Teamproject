@@ -23,6 +23,7 @@ class Adam():
                 if not g:
                     continue
                 dw,db=g
+                #dw1 dw2 db1 이런식으로 indexing해줌
                 dw_idx="dw"+str(i)
                 db_idx="db"+str(i)
                 self.m[dw_idx]=np.zeros_like(dw)
@@ -40,12 +41,14 @@ class Adam():
             #key 값 
             dw_idx="dw"+str(i)
             db_idx="db"+str(i)
-            
+            #1차 moment와 2차moment들 계산하는 식.
             self.m[dw_idx]=self.beta_1*self.m[dw_idx]+(1-self.beta_1)*dw
             self.m[db_idx]=self.beta_1*self.m[db_idx]+(1-self.beta_1)*db
             self.v[dw_idx]=self.beta_2*self.v[dw_idx]+(1-self.beta_2)*np.power(dw,2)
             self.v[db_idx]=self.beta_2*self.v[db_idx]+(1-self.beta_2)*np.power(db,2)
             # 나중에 가중치 편향이 일어나면 step 고려해줘야함
+            
+            #update 식으로 weight값들 레이어에 update해줌.
             dw=self.m[dw_idx]/(np.sqrt(self.v[dw_idx])+self.eps)
             db=self.m[db_idx]/(np.sqrt(self.v[db_idx])+self.eps)
             

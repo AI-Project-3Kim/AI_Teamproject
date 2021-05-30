@@ -8,7 +8,7 @@ import random
 import numpy as np
 import tensorflow as tf
 
-#데이터 
+#데이터 전처리
 train_dataset=tf.keras.preprocessing.image_dataset_from_directory(
     directory='./curated_data',
     labels="inferred",
